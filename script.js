@@ -36,7 +36,7 @@
 })();
 
 /* =========================================================
-   BACKGROUND MUSIC — Rizal_bg (on by default)
+   BACKGROUND MUSIC — Rizal_bg (on by default, plays through the quiz too)
    ========================================================= */
 const bgMusic = (function () {
   const audio = document.getElementById("site-bg-audio");
@@ -47,58 +47,43 @@ const bgMusic = (function () {
   if (!audio || !toggleBtn) return { pauseForQuiz() {}, resumeAfterQuiz() {} };
 
   audio.volume = 0.55;
-  let userWantsMusic = true;
-  let pausedByQuiz = false;
 
   function updateUI() {
-    label.textContent = userWantsMusic ? "Music: on" : "Music: off";
-    icon.textContent = userWantsMusic ? "♫" : "♪";
-    toggleBtn.setAttribute("aria-pressed", String(userWantsMusic));
+    const isOn = !audio.paused;
+    label.textContent = isOn ? "Music: on" : "Music: off";
+    icon.textContent = isOn ? "♫" : "♪";
+    toggleBtn.setAttribute("aria-pressed", String(isOn));
   }
 
   function tryPlay() {
     audio.play().catch(() => {
-      // Autoplay blocked by the browser until the visitor interacts with the page.
-      // Arm a one-time listener so music starts on their first click/tap/keypress.
-      const unlock = () => {
-        if (userWantsMusic) audio.play().catch(() => {});
-        window.removeEventListener("pointerdown", unlock);
-        window.removeEventListener("keydown", unlock);
-      };
-      window.addEventListener("pointerdown", unlock, { once: true });
-      window.addEventListener("keydown", unlock, { once: true });
+      // Autoplay blocked until the visitor interacts; updateUI will
+      // reflect reality once play() actually succeeds.
     });
   }
 
+  // Keep the label truthful by listening to the audio element itself,
+  // instead of tracking a separate on/off flag that can drift out of sync.
+  audio.addEventListener("play", updateUI);
+  audio.addEventListener("pause", updateUI);
+
   toggleBtn.addEventListener("click", () => {
-    userWantsMusic = !userWantsMusic;
-    if (userWantsMusic) {
+    if (audio.paused) {
       tryPlay();
     } else {
       audio.pause();
     }
-    updateUI();
   });
 
   updateUI();
-  tryPlay(); // attempt autoplay on load; falls back to first-interaction unlock above
+  tryPlay(); // attempt autoplay on load; harmless no-op if the browser blocks it
 
+  // Music is intentionally left alone when the quiz opens/closes.
   return {
-    pauseForQuiz() {
-      if (userWantsMusic && !audio.paused) {
-        pausedByQuiz = true;
-        audio.pause();
-      }
-    },
-    resumeAfterQuiz() {
-      if (pausedByQuiz) {
-        pausedByQuiz = false;
-        if (userWantsMusic) tryPlay();
-      }
-    },
+    pauseForQuiz() {},
+    resumeAfterQuiz() {},
   };
 })();
-
 /* =========================================================
    QUIZ ENGINE — "One Day: Maria Clara"
    ========================================================= */
