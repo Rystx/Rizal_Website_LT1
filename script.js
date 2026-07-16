@@ -48,11 +48,11 @@ const bgMusic = (function () {
   if (!audio || !toggleBtn) return { pauseForQuiz() {}, resumeAfterQuiz() {} };
 
   audio.volume = 0.55;
-  let userPaused = false; // starts off; only true user clicks change this
+  let userPaused = true; // starts off; only true user clicks change this
 
   function updateUI() {
     const isOn = !audio.paused;
-    label.textContent = isOn ? "Music: off" : "Music: on";
+    label.textContent = isOn ? "Music: on" : "Music: off";
     icon.textContent = isOn ? "♫" : "♪";
     toggleBtn.setAttribute("aria-pressed", String(isOn));
   }
