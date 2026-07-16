@@ -48,7 +48,7 @@ const bgMusic = (function () {
   if (!audio || !toggleBtn) return { pauseForQuiz() {}, resumeAfterQuiz() {} };
 
   audio.volume = 0.55;
-  let userPaused = true; // starts off; only true user clicks change this
+  let userPaused = false; // starts off; only true user clicks change this
 
   function updateUI() {
     const isOn = !audio.paused;
