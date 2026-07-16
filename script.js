@@ -36,6 +36,59 @@
 })();
 
 /* =========================================================
+   BACKGROUND MUSIC — Rizal_bg
+   ========================================================= */
+const bgMusic = (function () {
+  const audio = document.getElementById("site-bg-audio");
+  const toggleBtn = document.getElementById("sound-toggle");
+  const label = document.getElementById("sound-label");
+  const icon = document.getElementById("sound-icon");
+
+  if (!audio || !toggleBtn) return { pauseForQuiz() {}, resumeAfterQuiz() {} };
+
+  audio.volume = 0.55;
+  let userWantsMusic = false;
+  let pausedByQuiz = false;
+
+  function updateUI() {
+    label.textContent = userWantsMusic ? "Music: on" : "Music: off";
+    icon.textContent = userWantsMusic ? "♫" : "♪";
+    toggleBtn.setAttribute("aria-pressed", String(userWantsMusic));
+  }
+
+  toggleBtn.addEventListener("click", () => {
+    userWantsMusic = !userWantsMusic;
+    if (userWantsMusic) {
+      audio.play().catch(() => {
+        // Autoplay was blocked; user gesture from this click should normally allow it.
+        userWantsMusic = false;
+        updateUI();
+      });
+    } else {
+      audio.pause();
+    }
+    updateUI();
+  });
+
+  updateUI();
+
+  return {
+    pauseForQuiz() {
+      if (userWantsMusic && !audio.paused) {
+        pausedByQuiz = true;
+        audio.pause();
+      }
+    },
+    resumeAfterQuiz() {
+      if (pausedByQuiz) {
+        pausedByQuiz = false;
+        if (userWantsMusic) audio.play().catch(() => {});
+      }
+    },
+  };
+})();
+
+/* =========================================================
    QUIZ ENGINE — "One Day: Maria Clara"
    ========================================================= */
 (function () {
@@ -172,6 +225,7 @@
     overlay.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
     blockHistoryBack();
+    bgMusic.pauseForQuiz();
     renderNode(1);
   }
 
@@ -179,6 +233,7 @@
     overlay.classList.remove("open");
     overlay.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
+    bgMusic.resumeAfterQuiz();
     const nextSection = document.getElementById("section-8");
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
