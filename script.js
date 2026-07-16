@@ -36,7 +36,8 @@
 })();
 
 /* =========================================================
-   BACKGROUND MUSIC — Rizal_bg (on by default, plays through the quiz too)
+   BACKGROUND MUSIC — Rizal_bg (starts off, self-resumes if
+   the browser pauses it for any reason other than the user's own click)
    ========================================================= */
 const bgMusic = (function () {
   const audio = document.getElementById("site-bg-audio");
@@ -47,38 +48,41 @@ const bgMusic = (function () {
   if (!audio || !toggleBtn) return { pauseForQuiz() {}, resumeAfterQuiz() {} };
 
   audio.volume = 0.55;
+  let userPaused = true; // starts off; only true user clicks change this
 
   function updateUI() {
     const isOn = !audio.paused;
-    label.textContent = isOn ? "Music: off" : "Music: on";
+    label.textContent = isOn ? "Music: on" : "Music: off";
     icon.textContent = isOn ? "♫" : "♪";
     toggleBtn.setAttribute("aria-pressed", String(isOn));
   }
 
   function tryPlay() {
-    audio.play().catch(() => {
-      // Autoplay blocked until the visitor interacts; updateUI will
-      // reflect reality once play() actually succeeds.
-    });
+    audio.play().catch(() => {});
   }
 
-  // Keep the label truthful by listening to the audio element itself,
-  // instead of tracking a separate on/off flag that can drift out of sync.
   audio.addEventListener("play", updateUI);
-  audio.addEventListener("pause", updateUI);
+  audio.addEventListener("pause", () => {
+    updateUI();
+    // If the browser paused it on its own (not the user clicking the
+    // button), quietly start it right back up.
+    if (!userPaused) {
+      tryPlay();
+    }
+  });
 
   toggleBtn.addEventListener("click", () => {
     if (audio.paused) {
+      userPaused = false;
       tryPlay();
     } else {
+      userPaused = true;
       audio.pause();
     }
   });
 
   updateUI();
-  tryPlay(); // attempt autoplay on load; harmless no-op if the browser blocks it
 
-  // Music is intentionally left alone when the quiz opens/closes.
   return {
     pauseForQuiz() {},
     resumeAfterQuiz() {},
