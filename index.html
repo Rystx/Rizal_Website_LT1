@@ -260,116 +260,17 @@
   </div>
 </div>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Background Music</title>
+<!-- Background music (Rizal_bg) -->
+<audio id="site-bg-audio" loop preload="none">
+  <source src="images/Rizal_bg.mp3" type="audio/mpeg">
+  <source src="images/Rizal_bg.m4a" type="audio/mp4">
+</audio>
+<button class="sound-toggle" id="sound-toggle" aria-pressed="false" aria-label="Toggle background music">
+  <span class="icon" id="sound-icon">♫</span>
+  <span id="sound-label">Music: on</span>
+</button>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #f4f4f4;
-        }
-
-        #sound-toggle {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 18px;
-            border: none;
-            border-radius: 8px;
-            background: #6a5acd;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        #sound-toggle:hover {
-            background: #5b4abf;
-        }
-
-        #sound-icon {
-            font-size: 18px;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Background Music -->
-    <audio id="site-bg-audio" loop>
-        <source src="Rizal_bg.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
-    <!-- Toggle Button -->
-    <button id="sound-toggle" aria-pressed="true">
-        <span id="sound-icon">♫</span>
-        <span id="sound-label">Music: on</span>
-    </button>
-
-    <script>
-    /* =========================================================
-       BACKGROUND MUSIC — Rizal_bg
-       (on by default, plays through the quiz too)
-       ========================================================= */
-
-    const bgMusic = (function () {
-      const audio = document.getElementById("site-bg-audio");
-      const toggleBtn = document.getElementById("sound-toggle");
-      const label = document.getElementById("sound-label");
-      const icon = document.getElementById("sound-icon");
-
-      if (!audio || !toggleBtn) {
-        return {
-          pauseForQuiz() {},
-          resumeAfterQuiz() {}
-        };
-      }
-
-      audio.volume = 0.55;
-
-      function updateUI() {
-        const isOn = !audio.paused;
-        label.textContent = isOn ? "Music: on" : "Music: off";
-        icon.textContent = isOn ? "♫" : "♪";
-        toggleBtn.setAttribute("aria-pressed", String(isOn));
-      }
-
-      function tryPlay() {
-        audio.play().catch(() => {
-          // Autoplay blocked until the visitor interacts.
-        });
-      }
-
-      // Keep the UI synchronized with the audio state.
-      audio.addEventListener("play", updateUI);
-      audio.addEventListener("pause", updateUI);
-
-      toggleBtn.addEventListener("click", () => {
-        if (audio.paused) {
-          tryPlay();
-        } else {
-          audio.pause();
-        }
-      });
-
-      updateUI();
-      tryPlay(); // Attempt autoplay on page load.
-
-      // Music continues playing when the quiz opens/closes.
-      return {
-        pauseForQuiz() {},
-        resumeAfterQuiz() {}
-      };
-    })();
-    </script>
-
+<script src="quiz-data.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
