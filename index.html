@@ -244,7 +244,7 @@
 </main>
 
 <!-- QUIZ OVERLAY -->
-<div class="quiz-overlay" id="quiz-overlay" aria-hidden="false">
+<div class="quiz-overlay" id="quiz-overlay" aria-hidden="true">
   <div class="quiz-daybar">
     <div class="quiz-daybar-fill" id="quiz-daybar-fill"></div>
     <div class="quiz-daybar-marker" id="quiz-daybar-marker"></div>
@@ -261,13 +261,13 @@
 </div>
 
 <!-- Background music (Rizal_bg) -->
-<audio id="site-bg-audio" loop preload="true">
+<audio id="site-bg-audio" loop preload="none">
   <source src="images/Rizal_bg.mp3" type="audio/mpeg">
   <source src="images/Rizal_bg.m4a" type="audio/mp4">
 </audio>
-<button class="sound-toggle" id="sound-toggle" aria-pressed="false" aria-label="Toggle background music">
+<button class="sound-toggle" id="sound-toggle" aria-pressed="true">
   <span class="icon" id="sound-icon">♫</span>
-  <span id="sound-label">Music: off</span>
+  <span id="sound-label">Music: on</span>
 </button>
 
 <script src="quiz-data.js"></script>
