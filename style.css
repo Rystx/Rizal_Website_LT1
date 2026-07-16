@@ -429,34 +429,33 @@ main{ position: relative; }
   z-index: 60;
   display:flex;
   align-items:center;
-  gap: 0.5em;
+  gap: 0.75em;              /* was 0.5em */
   background: var(--ink);
   color: var(--parchment);
   border: 1px solid var(--gold);
   font-family: var(--body-font);
-  font-size: 0.85rem;
+  font-size: 1.275rem;      /* was 0.85rem */
   letter-spacing: 0.04em;
-  padding: 0.6em 1.1em;
+  padding: 0.9em 1.65em;    /* was 0.6em 1.1em */
   border-radius: 999px;
   cursor: pointer;
   box-shadow: 0 10px 24px -12px rgba(0,0,0,0.5);
   transition: background 0.2s ease;
 }
-.sound-toggle:hover{ background: #453626; }
-.sound-toggle:focus-visible{ outline: 2px solid var(--gold); outline-offset: 3px; }
-.sound-toggle .icon{ font-size: 1rem; line-height:1; }
 
-.site-footer{
-  text-align:center;
-  padding: 3rem 6vw 4rem;
-  color: var(--ink-soft);
-  font-size: 0.95rem;
-  border-top: 1px solid rgba(176,137,104,0.35);
-  max-width: 900px;
-  margin: 0 auto;
+.sound-toggle:hover{
+  background: #453626;
 }
-.footer-small{ font-size: 0.8rem; opacity: 0.75; }
 
+.sound-toggle:focus-visible{
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.sound-toggle .icon{
+  font-size: 1.5rem;         /* was 1rem */
+  line-height:1;
+}
 /* =========================================================
    QUIZ OVERLAY — "One Day: Maria Clara"
    Own distinct token set per Maria_Clara_Quiz_Reference.docx.
