@@ -12,11 +12,17 @@
 <body>
 
 <!-- Timeline rail (main site signature) -->
-<nav class="rail" aria-label="Historical timeline">
+<nav class="rail" aria-label="Page progress">
   <div class="rail-line"></div>
   <button class="rail-dot" data-target="section-1" data-year="1861"><span class="rail-label">1861 — Born</span></button>
   <button class="rail-dot" data-target="section-2" data-year="1887"><span class="rail-label">1887 — Noli published</span></button>
   <button class="rail-dot" data-target="section-3" data-year="1891"><span class="rail-label">1891 — El Fili published</span></button>
+  <button class="rail-dot" data-target="subsection-a"><span class="rail-label">A — Society in Layers</span></button>
+  <button class="rail-dot" data-target="subsection-b"><span class="rail-label">B — Her Place in It</span></button>
+  <button class="rail-dot" data-target="subsection-c"><span class="rail-label">C — Marriage as Transaction</span></button>
+  <button class="rail-dot" data-target="subsection-d"><span class="rail-label">D — Friars as Rulers</span></button>
+  <button class="rail-dot" data-target="subsection-e"><span class="rail-label">E — The Hypocrisy</span></button>
+  <button class="rail-dot" data-target="subsection-f"><span class="rail-label">F — A System Protecting Itself</span></button>
   <button class="rail-dot" data-target="section-closing" data-year="1896"><span class="rail-label">1896 — Executed</span></button>
 </nav>
 
@@ -53,7 +59,7 @@
   </section>
 
   <!-- SECTION 2 -->
-  <section class="content-section" id="section-2">
+  <section class="content-section dark" id="section-2">
     <div class="section-inner">
       <div class="section-image">
         <img src="images/noli.jpg" alt="Cover of Noli Me Tangere">
@@ -68,7 +74,7 @@
   </section>
 
   <!-- SECTION 3 -->
-  <section class="content-section" id="section-3">
+  <section class="content-section dark" id="section-3">
     <div class="section-inner reverse">
       <div class="section-image">
         <img src="images/el-fili.jpg" alt="Cover of El Filibusterismo">
@@ -106,7 +112,7 @@
   <!-- SECTION 5: FAMILY & SOCIETY (reframed through Maria Clara, alternating subsections) -->
   <section class="subsection-group" id="section-5">
 
-    <div class="subsection light">
+    <div class="subsection dark" id="subsection-a">
       <div class="subsection-inner">
         <div class="subsection-image">
           <img src="images/family-8.jpg" alt="A Filipino family portrait from the Spanish colonial era">
@@ -119,7 +125,7 @@
       </div>
     </div>
 
-    <div class="subsection dark">
+    <div class="subsection dark" id="subsection-b">
       <div class="subsection-inner reverse">
         <div class="subsection-image">
           <img src="images/family-9.jpg" alt="Another Filipino family portrait from the era">
@@ -132,7 +138,7 @@
       </div>
     </div>
 
-    <div class="subsection light">
+    <div class="subsection light" id="subsection-c">
       <div class="subsection-inner text-only">
         <div>
           <hr class="pull-divider">
@@ -148,7 +154,7 @@
   <!-- SECTION 6: FRAILOCRACY (reframed through Maria Clara, continues alternation) -->
   <section class="subsection-group" id="section-6">
 
-    <div class="subsection dark">
+    <div class="subsection dark" id="subsection-d">
       <div class="subsection-inner">
         <div class="subsection-image two-up">
           <img src="images/friars-6.jpg" alt="Four seated Spanish friars in habits">
@@ -162,7 +168,7 @@
       </div>
     </div>
 
-    <div class="subsection light">
+    <div class="subsection light" id="subsection-e">
       <div class="subsection-inner reverse">
         <div class="subsection-image">
           <img src="images/friars-7.jpg" alt="Portrait of a single friar">
@@ -175,7 +181,7 @@
       </div>
     </div>
 
-    <div class="subsection dark">
+    <div class="subsection dark" id="subsection-f">
       <div class="subsection-inner">
         <div class="subsection-image">
           <img src="images/church-9.jpg" alt="A Spanish colonial-era church in the Philippines">
@@ -249,9 +255,9 @@
   <source src="images/Rizal_bg.mp3" type="audio/mpeg">
   <source src="images/Rizal_bg.m4a" type="audio/mp4">
 </audio>
-<button class="sound-toggle" id="sound-toggle" aria-pressed="false">
-  <span class="icon" id="sound-icon">♪</span>
-  <span id="sound-label">Music: off</span>
+<button class="sound-toggle" id="sound-toggle" aria-pressed="true">
+  <span class="icon" id="sound-icon">♫</span>
+  <span id="sound-label">Music: on</span>
 </button>
 
 <script src="quiz-data.js"></script>

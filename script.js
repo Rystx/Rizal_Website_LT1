@@ -36,7 +36,7 @@
 })();
 
 /* =========================================================
-   BACKGROUND MUSIC — Rizal_bg
+   BACKGROUND MUSIC — Rizal_bg (on by default)
    ========================================================= */
 const bgMusic = (function () {
   const audio = document.getElementById("site-bg-audio");
@@ -47,7 +47,7 @@ const bgMusic = (function () {
   if (!audio || !toggleBtn) return { pauseForQuiz() {}, resumeAfterQuiz() {} };
 
   audio.volume = 0.55;
-  let userWantsMusic = false;
+  let userWantsMusic = true;
   let pausedByQuiz = false;
 
   function updateUI() {
@@ -56,14 +56,24 @@ const bgMusic = (function () {
     toggleBtn.setAttribute("aria-pressed", String(userWantsMusic));
   }
 
+  function tryPlay() {
+    audio.play().catch(() => {
+      // Autoplay blocked by the browser until the visitor interacts with the page.
+      // Arm a one-time listener so music starts on their first click/tap/keypress.
+      const unlock = () => {
+        if (userWantsMusic) audio.play().catch(() => {});
+        window.removeEventListener("pointerdown", unlock);
+        window.removeEventListener("keydown", unlock);
+      };
+      window.addEventListener("pointerdown", unlock, { once: true });
+      window.addEventListener("keydown", unlock, { once: true });
+    });
+  }
+
   toggleBtn.addEventListener("click", () => {
     userWantsMusic = !userWantsMusic;
     if (userWantsMusic) {
-      audio.play().catch(() => {
-        // Autoplay was blocked; user gesture from this click should normally allow it.
-        userWantsMusic = false;
-        updateUI();
-      });
+      tryPlay();
     } else {
       audio.pause();
     }
@@ -71,6 +81,7 @@ const bgMusic = (function () {
   });
 
   updateUI();
+  tryPlay(); // attempt autoplay on load; falls back to first-interaction unlock above
 
   return {
     pauseForQuiz() {
@@ -82,7 +93,7 @@ const bgMusic = (function () {
     resumeAfterQuiz() {
       if (pausedByQuiz) {
         pausedByQuiz = false;
-        if (userWantsMusic) audio.play().catch(() => {});
+        if (userWantsMusic) tryPlay();
       }
     },
   };
