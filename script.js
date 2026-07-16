@@ -50,7 +50,7 @@ const bgMusic = (function () {
 
   function updateUI() {
     const isOn = !audio.paused;
-    label.textContent = isOn ? "Music: on" : "Music: off";
+    label.textContent = isOn ? "Music: off" : "Music: on";
     icon.textContent = isOn ? "♫" : "♪";
     toggleBtn.setAttribute("aria-pressed", String(isOn));
   }
@@ -221,7 +221,6 @@ const bgMusic = (function () {
     overlay.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
     blockHistoryBack();
-    bgMusic.pauseForQuiz();
     renderNode(1);
   }
 
