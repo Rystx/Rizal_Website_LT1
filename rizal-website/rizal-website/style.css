@@ -1,0 +1,520 @@
+/* =========================================================
+   JOSÉ RIZAL — MAIN SITE TOKENS
+   ========================================================= */
+:root{
+  --parchment: #F4ECDA;
+  --ink: #2C241C;
+  --ink-soft: #5A4F42;
+  --gold: #B08968;
+  --oxblood: #6E2A28;
+  --photo-scrim: rgba(44,36,28,0.25);
+
+  --display-font: 'Cormorant Garamond', serif;
+  --body-font: 'EB Garamond', serif;
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin:0;
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: var(--body-font);
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+h1,h2{
+  font-family: var(--display-font);
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 0.4em;
+  letter-spacing: 0.01em;
+}
+
+em{ font-style: italic; }
+
+.eyebrow{
+  font-family: var(--body-font);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+  color: var(--oxblood);
+  margin: 0 0 0.8em;
+}
+.eyebrow.center, .lede.center, h2.center{ text-align:center; }
+
+img{ max-width:100%; display:block; }
+
+/* ---------- Timeline rail (main site signature) ---------- */
+.rail{
+  position: fixed;
+  left: 28px;
+  top: 0;
+  height: 100vh;
+  width: 20px;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.rail-line{
+  position: absolute;
+  top: 6%;
+  bottom: 6%;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, var(--gold), var(--oxblood));
+  opacity: 0.45;
+}
+.rail-dot{
+  position: relative;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  background: var(--parchment);
+  cursor: pointer;
+  padding:0;
+  transition: background 0.4s ease, transform 0.4s ease;
+}
+.rail-dot.active{
+  background: var(--oxblood);
+  border-color: var(--oxblood);
+  transform: scale(1.25);
+}
+.rail-label{
+  position: absolute;
+  left: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-family: var(--body-font);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  background: var(--parchment);
+  padding: 2px 6px;
+}
+.rail-dot:hover .rail-label,
+.rail-dot.active .rail-label{ opacity: 1; }
+
+@media (max-width: 900px){
+  .rail{ display:none; }
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  position: relative;
+  height: 100vh;
+  min-height: 560px;
+  overflow: hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.hero-img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit: cover;
+}
+.hero-scrim{
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(44,36,28,0.35) 0%, rgba(44,36,28,0.55) 60%, rgba(44,36,28,0.75) 100%);
+}
+.hero-content{
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+  text-align: center;
+  padding: 0 24px;
+  color: #F4ECDA;
+}
+.hero-content .eyebrow{ color: #D9B48C; }
+.hero h1{
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  color: #F9F3E7;
+  line-height: 1.1;
+}
+.hero h1 em{ color: #D9B48C; font-style: italic; }
+.subhead{
+  font-size: 1.25rem;
+  color: #E9E0CD;
+  max-width: 560px;
+  margin: 0.6em auto 0;
+}
+.scroll-cue{
+  position:absolute;
+  bottom: 34px; left:50%;
+  transform: translateX(-50%);
+  z-index:2;
+  text-align:center;
+  color:#E9E0CD;
+}
+.scroll-cue span{
+  display:block;
+  width:1px; height:34px;
+  background: #D9B48C;
+  margin: 0 auto 8px;
+  animation: pulse-down 2s ease-in-out infinite;
+}
+.scroll-cue p{
+  margin:0;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+@keyframes pulse-down{
+  0%,100%{ opacity: 0.3; transform: scaleY(0.7); transform-origin: top; }
+  50%{ opacity: 1; transform: scaleY(1); transform-origin: top; }
+}
+
+/* ---------- Content sections (general) ---------- */
+main{ position: relative; }
+.content-section{
+  padding: 7rem 8vw 7rem calc(8vw + 40px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+@media (max-width: 900px){
+  .content-section{ padding: 4.5rem 6vw; }
+}
+
+.section-inner{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items:center;
+}
+.section-inner.reverse{ direction: rtl; }
+.section-inner.reverse > *{ direction: ltr; }
+.section-inner.solo{ grid-template-columns: 1fr; max-width: 720px; margin:0 auto; }
+
+.section-image img{
+  border-radius: 2px;
+  box-shadow: 0 18px 40px -20px rgba(44,36,28,0.4);
+}
+.section-image.two-up{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.section-text h2{ font-size: clamp(1.9rem, 3vw, 2.6rem); }
+.section-text p{ color: var(--ink); max-width: 46ch; }
+
+@media (max-width: 900px){
+  .section-inner, .section-inner.reverse{
+    grid-template-columns: 1fr;
+    direction: ltr;
+  }
+  .section-image.two-up{ grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- Frailocracy gallery section ---------- */
+.gallery-section{ background: #EFE4CC; }
+.gallery-inner{ max-width: 980px; margin:0 auto; text-align:center; }
+.lede{
+  max-width: 62ch;
+  margin: 0 auto 3rem;
+  color: var(--ink);
+}
+.gallery-grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.1rem;
+  text-align:left;
+}
+.gallery-grid img{
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 2px;
+  box-shadow: 0 14px 30px -18px rgba(44,36,28,0.45);
+}
+@media (max-width: 900px){
+  .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- Maria Clara section ---------- */
+.maria-section{ padding-top: 6rem; padding-bottom: 6rem; }
+.maria-inner{ max-width: 1080px; margin:0 auto; }
+.maria-inner h2{ font-size: clamp(2.2rem, 4vw, 3.2rem); }
+.maria-body{
+  display:grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 3.5rem;
+  align-items:start;
+  margin-top: 3rem;
+}
+.maria-image img{
+  box-shadow: 0 20px 44px -22px rgba(44,36,28,0.45);
+  border-radius: 2px;
+}
+.maria-text p{ margin-bottom: 1.3em; }
+.maria-text p:first-of-type::first-letter{
+  font-family: var(--display-font);
+  font-size: 3.4rem;
+  float:left;
+  line-height: 0.8;
+  padding-right: 0.1em;
+  color: var(--oxblood);
+}
+.maria-photo-strip{
+  margin-top: 3rem;
+  max-width: 320px;
+  margin-left:auto; margin-right:auto;
+}
+.maria-photo-strip img{
+  box-shadow: 0 14px 30px -18px rgba(44,36,28,0.4);
+}
+@media (max-width: 900px){
+  .maria-body{ grid-template-columns: 1fr; }
+}
+
+/* ---------- Quiz launch section ---------- */
+.quiz-launch{
+  background: var(--ink);
+  color: var(--parchment);
+  text-align:center;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+.quiz-launch-inner{ max-width: 640px; margin:0 auto; }
+.quiz-launch h2{ color: #F4ECDA; }
+.quiz-launch .eyebrow{ color: #D9B48C; }
+.quiz-launch .lede{ color: #D8D0BE; }
+.cta-button{
+  margin-top: 2rem;
+  font-family: var(--body-font);
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  background: var(--oxblood);
+  color: #F4ECDA;
+  border: none;
+  padding: 0.95em 2.4em;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.cta-button:hover{ background: #832F2C; transform: translateY(-2px); }
+.cta-button:focus-visible{ outline: 2px solid #D9B48C; outline-offset: 3px; }
+
+/* ---------- Closing ---------- */
+.closing-section{ text-align:center; padding-top: 7rem; padding-bottom: 5rem; }
+.closing-inner{ max-width: 620px; margin:0 auto; }
+.closing-text{ font-size: 1.3rem; color: var(--ink); }
+
+.site-footer{
+  text-align:center;
+  padding: 3rem 6vw 4rem;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  border-top: 1px solid rgba(176,137,104,0.35);
+  max-width: 900px;
+  margin: 0 auto;
+}
+.footer-small{ font-size: 0.8rem; opacity: 0.75; }
+
+/* =========================================================
+   QUIZ OVERLAY — "One Day: Maria Clara"
+   Own distinct token set per Maria_Clara_Quiz_Reference.docx.
+   Deliberately NOT using the main site's oxblood/gold palette.
+   ========================================================= */
+.quiz-overlay{
+  --dawn-gold: #C9A15A;
+  --dawn-bg: #F6ECD9;
+  --dusk-grey: #7D8489;
+  --dusk-bg: #E7E6E2;
+  --night-bg: #CFD2D1;
+  --night-stone: #5B6266;
+  --q-ink: #2C241C;
+  --q-ink-soft: #5A4F42;
+  --q-paper: #FFFAF1;
+
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--dawn-bg);
+  transition: background 1.1s ease;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.quiz-overlay.open{
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.quiz-daybar{
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: linear-gradient(to bottom, var(--dawn-gold), var(--dusk-grey), var(--night-stone));
+}
+.quiz-daybar-marker{
+  position: absolute;
+  left: 50%;
+  top: 0%;
+  width: 14px; height: 14px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--q-paper);
+  border: 2px solid var(--q-ink);
+  transition: top 0.9s ease;
+}
+
+.quiz-backdrop{
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.28;
+  transition: background-image 0.6s ease;
+}
+.quiz-scrim{
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(255,250,241,0.2), rgba(255,250,241,0.55));
+}
+
+.quiz-stage{
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding: 2rem;
+}
+
+.quiz-time{
+  font-family: var(--display-font);
+  font-style: italic;
+  color: var(--q-ink-soft);
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  margin: 0 0 1.1rem;
+}
+
+.quiz-card{
+  background: var(--q-paper);
+  max-width: 760px;
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 30px 60px -20px rgba(44,36,28,0.35);
+  padding: 3rem 3.2rem;
+  animation: rise-in 0.6s ease;
+}
+@media (prefers-reduced-motion: reduce){
+  .quiz-card{ animation: none; }
+}
+@keyframes rise-in{
+  from{ opacity:0; transform: translateY(18px); }
+  to{ opacity:1; transform: translateY(0); }
+}
+
+.quiz-card h3{
+  font-family: var(--display-font);
+  font-weight: 500;
+  font-size: 2rem;
+  color: var(--q-ink);
+  margin: 0 0 1rem;
+}
+.quiz-card .quiz-narration{
+  font-family: var(--body-font);
+  color: var(--q-ink);
+  font-size: 1.12rem;
+  line-height: 1.75;
+  margin-bottom: 1.6rem;
+}
+.quiz-card .quiz-prompt{
+  font-family: var(--display-font);
+  font-style: italic;
+  color: var(--q-ink-soft);
+  font-size: 1.2rem;
+  margin-bottom: 1.3rem;
+}
+.quiz-choices{
+  display:flex;
+  flex-direction:column;
+  gap: 0.7rem;
+  margin-bottom: 0.4rem;
+}
+.quiz-choice-btn{
+  font-family: var(--body-font);
+  font-size: 1.02rem;
+  text-align:left;
+  background: transparent;
+  border: 1px solid var(--dawn-gold);
+  color: var(--q-ink);
+  padding: 0.85em 1.2em;
+  border-radius: 3px;
+  cursor:pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.quiz-choice-btn:hover{
+  background: rgba(201,161,90,0.15);
+}
+.quiz-choice-btn:focus-visible{
+  outline: 2px solid var(--q-ink-soft);
+  outline-offset: 2px;
+}
+
+.quiz-reaction{
+  font-family: var(--display-font);
+  font-style: italic;
+  color: var(--q-ink-soft);
+  font-size: 1.18rem;
+  line-height: 1.7;
+  margin-bottom: 1.8rem;
+}
+
+.quiz-continue-btn{
+  font-family: var(--display-font);
+  font-size: 1.05rem;
+  background: var(--q-ink);
+  color: var(--q-paper);
+  border:none;
+  padding: 0.8em 2em;
+  border-radius: 3px;
+  cursor:pointer;
+  transition: background 0.2s ease;
+}
+.quiz-continue-btn:hover{ background: var(--night-stone); }
+
+.quiz-footnote{
+  font-family: var(--body-font);
+  font-size: 0.92rem;
+  color: var(--q-ink-soft);
+  border-top: 1px solid rgba(90,79,66,0.25);
+  padding-top: 1.2rem;
+  margin: 1.6rem 0;
+  line-height: 1.6;
+}
+
+.quiz-end-actions{
+  display:flex;
+  gap: 1rem;
+  justify-content:center;
+  margin-top: 0.5rem;
+}
+.quiz-leave-btn{
+  font-family: var(--display-font);
+  font-size: 1.05rem;
+  background: transparent;
+  color: var(--q-ink-soft);
+  border: 1px solid var(--q-ink-soft);
+  padding: 0.8em 1.8em;
+  border-radius: 3px;
+  cursor:pointer;
+}
+.quiz-leave-btn:hover{ background: rgba(90,79,66,0.08); }
+
+@media (max-width: 640px){
+  .quiz-card{ padding: 2.2rem 1.6rem; }
+  .quiz-card h3{ font-size: 1.6rem; }
+}
